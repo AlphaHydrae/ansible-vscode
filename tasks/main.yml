@@ -1,0 +1,21 @@
+---
+
+- name: brew cask install visual-studio-code
+  homebrew_cask: name=visual-studio-code state=present
+  become: true
+  become_user: "{{ vscode_homebrew_user }}"
+  when: ansible_pkg_mgr == 'homebrew'
+  tags: [ vscode ]
+
+- name: list visual studio code extensions
+  set_fact:
+    vscode_extensions: "{{ lookup('file', vscode_extensions_file).strip().split('\n') }}"
+  when: vscode_extensions | length <= 0 and vscode_extensions_file is defined
+  tags: [ vscode ]
+
+- name: install visual studio code extensions
+  command: code --install-extension {{ item }}
+  with_items: "{{ vscode_extensions }}"
+  register: vscode_install_extension_result
+  changed_when: "'is already installed' not in vscode_install_extension_result.stdout"
+  tags: [ vscode ]
