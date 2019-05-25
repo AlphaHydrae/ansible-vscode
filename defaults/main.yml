@@ -1,3 +1,4 @@
 ---
 vscode_extensions: []
 vscode_homebrew_user: "{{ homebrew_user | default(user) | default(omit) }}"
+vscode_macos_key_repeat: true

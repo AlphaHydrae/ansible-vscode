@@ -19,3 +19,8 @@
   register: vscode_install_extension_result
   changed_when: "'is already installed' not in vscode_install_extension_result.stdout"
   tags: [ vscode ]
+
+- name: enable
+  command: defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
+  when: ansible_os_family == 'Darwin'
+  tags: [ vscode ]
