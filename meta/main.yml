@@ -15,4 +15,5 @@ galaxy_info:
     - visual-studio-code
 
 dependencies:
-  - role: AlphaHydrae.homebrew-cask
+  - role: AlphaHydrae.multipass
+  - role: AlphaHydrae.homebrew
