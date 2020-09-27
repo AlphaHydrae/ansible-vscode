@@ -15,6 +15,8 @@
 
 - name: install visual studio code extensions
   command: code --install-extension {{ item | quote }}
+  environment:
+    PATH: "/usr/local/bin:{{ ansible_env.PATH }}"
   with_items: "{{ vscode_extensions }}"
   register: vscode_install_extension_result
   changed_when: "'is already installed' not in vscode_install_extension_result.stdout"
